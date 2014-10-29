@@ -1,0 +1,23 @@
+{
+  "name": "EauTracker",
+  "version": "0.0.1",
+  "homepage": "https://github.com/EauTrack/mean-app",
+  "authors": [
+    "Clay Diffrient <cdiffrient@instructure.com>"
+  ],
+  "description": "Track your water intake.",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}
