@@ -11,6 +11,7 @@ var fs = require('fs');
 var browserify = require('browserify-middleware');
 var reactify = require('reactify');
 var walk = require('./utils/walk');
+var exphbs = require('express-handlebars');
 
 var session = require('express-session');
 var passport = require('passport');
@@ -31,8 +32,11 @@ walk('./app/models', function (err, results) {
 
 app.set('port', process.env.PORT || 3000);
 
-app.engine('jsx', require('express-react-views').createEngine());
-app.set('view engine', 'jsx');
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+//app.engine('jsx', require('express-react-views').createEngine());
+//app.set('view engine', 'jsx');
 
 
 app.use(logger('dev'));
@@ -70,6 +74,8 @@ browserify.settings({
   extensions: ['.js', '.jsx'],
   grep: /\.jsx?$/
 });
+
+app.get('/bundles/signup.js', browserify('./app/components/Signup.jsx'));
 
 //var shared = ['react'];
 //app.use('/js',browserify('./views'));
