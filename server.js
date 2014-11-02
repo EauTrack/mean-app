@@ -19,8 +19,10 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
+var config = require('./config');
+
 // Connect to the database.
-mongoose.connect('localhost');
+mongoose.connect(config.db());
 
 // Read in the model files
 walk('./app/models', function (err, results) {
