@@ -7,6 +7,9 @@
       <link rel="stylesheet" href="/styles/compiled.css" />
   </head>
   <body>
+    {{#if message.length }}
+      <div class="alert alert-danger">{{{ message }}}</div>
+    {{/if}}
     <div id="container">
       {{{body}}}
     </div>

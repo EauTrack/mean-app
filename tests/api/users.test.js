@@ -30,8 +30,6 @@ describe('User API ', function () {
 
 
   it('should create a user', function (done){
-
-
     request(url)
       .post('/api/users')
       .send(user)
@@ -42,6 +40,20 @@ describe('User API ', function () {
         expect(res.status).to.be(200);
         expect(res.body.id).to.be.ok();
         createdUserOneId = res.body.id;
+        done();
+      });
+  });
+
+  it('should have an error on a duplicated username and give a suggestion', function (done) {
+    request(url)
+      .post('/api/users')
+      .send(user)
+      .end(function (err, res) {
+        if (err) {
+          throw err;
+        }
+        expect(res.status).to.be(400);
+        expect(res.body.suggestions).to.be.ok();
         done();
       });
   });

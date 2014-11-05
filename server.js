@@ -12,6 +12,7 @@ var browserify = require('browserify-middleware');
 var reactify = require('reactify');
 var walk = require('./utils/walk');
 var exphbs = require('express-handlebars');
+var flash = require('connect-flash');
 
 var session = require('express-session');
 var passport = require('passport');
@@ -23,6 +24,9 @@ var config = require('./config');
 
 // Connect to the database.
 mongoose.connect(config.db());
+
+// Bring in the passport configuration.
+require('./config/passport')(passport);
 
 // Read in the model files
 walk('./app/models', function (err, results) {
@@ -45,9 +49,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'tv is cool' }));
+app.use(session({
+  secret: 'water not gatorade',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.set('views', __dirname + '/app/views');
 app.use(express.static(path.join(__dirname, 'public')));
